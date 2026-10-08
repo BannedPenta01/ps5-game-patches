@@ -25,3 +25,17 @@ load instead of corrupting memory.
 The [`emulator/`](emulator/) folder holds KytyPS5 source patches developed
 alongside these game patches (e.g. multithreaded video decoding for game
 cutscenes). See [`emulator/VIDEO_OPTIMIZATIONS.md`](emulator/VIDEO_OPTIMIZATIONS.md).
+
+## In-launcher flow (custom KytyPS5 launcher builds)
+
+Newer launcher builds with community-patch support do this automatically:
+
+- Running a game with available patches shows a one-time disclaimer
+  (recommended on handhelds / lower-end PCs) with an option to download.
+- After downloading, the launcher reports "Patches successfully downloaded."
+  and never asks again for that game.
+- The toolbar band-aid button opens per-game patch selection; the patches
+  dialog can also download from and link back to this repository.
+
+Patch lookup uses [`index.json`](index.json), which maps title IDs to the
+files in this repo. When adding a game, register its files there.
