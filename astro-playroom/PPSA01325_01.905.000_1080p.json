@@ -49,11 +49,12 @@
           "on": "41bc80070000"
         }
       ],
-      "name": "Preset: Balanced - 1080p internal (recommended)"
+      "name": "Preset: Balanced - 1080p internal (recommended)",
+      "enabled": false
     },
     {
       "name": "Preset: Performance - 720p internal (enable INSTEAD of Balanced, not both)",
-      "enabled": false,
+      "enabled": true,
       "memory": [
         {
           "offset": "0x183EEA7",
