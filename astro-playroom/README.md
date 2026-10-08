@@ -121,6 +121,23 @@ FOLLOW-UP EXPERIMENTS (2026-10-08)
   a pegged guest main thread at title, the video/title limits are game-side
   pacing and per-frame CPU work, not transfer bandwidth.
 
+THERMALS & POWER (Ryzen Z1 handheld, measured 5-min session)
+- Sustained load: CPU ~76-77C, GPU ~76-77C, package power flat at 15.1W.
+  Verdict: NOT overheating. 70s are normal operating temps (TjMax ~95C+),
+  and the flat 15W line is the platform's own TDP cap (Silent profile)
+  doing its job. Modern APUs self-protect in firmware; software cannot push
+  them to dangerous levels. Brief 90C+ spikes at boot (shader compile) are
+  normal and short.
+- No spin-waits found in the emulator: kernel sync is futex-based, waits
+  sleep properly, governor already "performance", no RAM pressure (5GB
+  resident of 9GB available).
+- Eco changes shipped in the custom build: video decode threads capped 8->6
+  (decode uses ~150% CPU with headroom to spare; spare threads are worth
+  more to the render path under a fixed power budget).
+- Helper: add-ons/kytyps5/eco-guard.sh --seconds=N logs CPU/GPU temp +
+  package/GPU power and warns after 60s sustained 90C+. Observer only;
+  it changes nothing by itself.
+
 RE-PORTING TO A NEW VERSION
 1. In the new eboot.bin, search code for B8 imm64 0x87000000F00 and for
    mov r32,imm32 pairs (0xF00 vs 0x780, 0x870 vs 0x438) near resolution
