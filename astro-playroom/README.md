@@ -174,6 +174,24 @@ THERMALS & POWER (Ryzen Z1 handheld, measured 5-min session)
   package/GPU power and warns after 60s sustained 90C+. Observer only;
   it changes nothing by itself.
 
+FINAL UPDATE - persistent pipeline cache + GPL (fork branch
+astro-handheld-pack, commits b256536 + 31a0173)
+- Root cause found: the Vulkan pipeline cache was DISABLED on every boot
+  purely because the tree was dirty ("disabled (dirty build)"). Committing
+  the fork's work activated it: first boot initializes + saves
+  _PipelineCache/PPSA01325.bin (1.5MB), later boots load it. Shader and
+  pipeline compilation become one-time instead of every-boot CPU burn.
+  Verified: "loading ... loaded 1561840 bytes" on second boot.
+- kyty.sh now exports RADV_PERFTEST=gpl (graphics pipeline libraries:
+  faster pipeline creation, less compile stutter/heat; stable Mesa 23+,
+  boot-tested with no errors).
+- VRS checked and skipped: Astro's Playroom makes no VRS API use (one
+  unrelated 'vrs' resource-name hit), so wiring host fragment-shading-rate
+  would gain nothing.
+- Frame capping deliberately NOT added: capping below the game's rate
+  would either do nothing (game runs under it) or break pacing (vblank-
+  locked logic / present backpressure). Menu-60fps presents cost little.
+
 RE-PORTING TO A NEW VERSION
 1. In the new eboot.bin, search code for B8 imm64 0x87000000F00 and for
    mov r32,imm32 pairs (0xF00 vs 0x780, 0x870 vs 0x438) near resolution
