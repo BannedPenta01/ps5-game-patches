@@ -1,0 +1,57 @@
+{
+  "id": "PPSA01325",
+  "version": "01.905.000",
+  "process": "eboot.bin",
+  "mods": [
+    {
+      "name": "Internal 1080p (was 4K) - 9 writes",
+      "memory": [
+        {
+          "offset": "0x183EEA7",
+          "off": "000f000070080000",
+          "on": "8007000038040000"
+        },
+        {
+          "offset": "0x1C2BEC4",
+          "off": "41bc70080000",
+          "on": "41bc38040000"
+        },
+        {
+          "offset": "0x1C2BECA",
+          "off": "41be000f0000",
+          "on": "41be80070000"
+        },
+        {
+          "offset": "0x1C2BFE6",
+          "off": "ba000f0000",
+          "on": "ba80070000"
+        },
+        {
+          "offset": "0x1C2BFF5",
+          "off": "b970080000",
+          "on": "b938040000"
+        },
+        {
+          "offset": "0x1C2E5F7",
+          "off": "41be70080000",
+          "on": "41be38040000"
+        },
+        {
+          "offset": "0x1C2E5FD",
+          "off": "bb000f0000",
+          "on": "bb80070000"
+        },
+        {
+          "offset": "0x1D59E8D",
+          "off": "bb70080000",
+          "on": "bb38040000"
+        },
+        {
+          "offset": "0x1D59E92",
+          "off": "41bc000f0000",
+          "on": "41bc80070000"
+        }
+      ]
+    }
+  ]
+}
