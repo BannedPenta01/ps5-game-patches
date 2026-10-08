@@ -1,4 +1,4 @@
-# ASTRO's PLAYROOM — Internal resolution patches (PPSA01325, v01.905.000)
+# ASTRO's PLAYROOM — Graphics preset patches (PPSA01325, v01.905.000)
 
 Astro's Playroom (PPSA01325, v01.905.000) - Internal 1080p patch for KytyPS5
 =============================================================================
@@ -16,15 +16,14 @@ PPSA01325_01.905.000_1080p.json  (this folder; despite the name it holds
 both mods below - enable exactly ONE of them in the Kyty launcher's
 patches dialog, or via the "enabled" flags)
 
-MODS
-1. "Internal 1080p (was 4K)" (enabled by default) - 9 writes, 3840x2160 ->
-   1920x1080. Best quality/perf balance. Title: ~12.3 fps (stock ~4.4).
-2. "Internal 720p (was 4K)" (disabled by default) - same 9 sites rewritten
-   to 1280x720 (0x500/0x2D0). Title: ~15.2 fps (~3.5x stock, +24% over
-   1080p). Verified: 1280x720 main target + full mip chain, no 1080p/4K
-   targets left, clean boot to the "START A NEW GAME" screen (screenshot
-   verified, no corruption). Same-scene draw counts identical (~250/present),
-   so the gain is real rendering work saved, not a different scene.
+MODS (pick exactly ONE - the launcher's patches dialog shows these as
+settings checkboxes, like a PC game's graphics options)
+1. "Preset: Balanced - 1080p internal" (enabled by default) - 9 writes,
+   3840x2160 -> 1920x1080. Best quality/perf balance. Title: ~12.3 fps.
+2. "Preset: Performance - 720p internal" (disabled by default) - same 9
+   sites rewritten to 1280x720 (0x500/0x2D0). Title: ~15.2 fps (~3.5x stock,
+   +24% over 1080p). Verified: 1280x720 main target + full mip chain, no
+   1080p/4K targets left, clean boot to the "START A NEW GAME" screen.
 
 USAGE - command line (Batocera / kyty.sh):
   kyty_emulator --game "/userdata/roms/ps5/Astro Playroom.ps5/eboot.bin" \
@@ -104,6 +103,19 @@ EMULATOR UPDATE - video cutscene path (KytyPS5 source + deployed binary)
   (~35-46fps): decode/convert were already faster than the content rate,
   the remaining gap is downstream (texture upload / presentation / game
   pacing).
+
+FUTURE EFFECT OPTIONS (bloom / SSAO / shadows / LOD) - investigated,
+not yet shippable. Findings: the engine is a deferred renderer with named
+stages (CheckerboardStencil, DecalShadowTex, SSAO_Async, TaaHalton, SSR,
+ZPrepass, GBuffer debug) and a named-param/tweak system (HightQuality,
+IsHalf, DebugRenderScale, per-effect params created via a common
+new+name+type constructor). BUT readers use hashed lookups, so static
+analysis finds declarations, not the decision points - there are no safe
+patch sites for effect toggles yet. Blind-patching would risk corruption
+for zero verified gain. Per-effect work (starting with bloom: fullscreen,
+additive, mild visual cost) needs render-stage correlation and is roadmap,
+not in this file. The two resolution presets above are the verified,
+safe core of the preset.
 
 FOLLOW-UP EXPERIMENTS (2026-10-08)
 - Shadow 2048->1024 experiment: NEGATIVE. The most promising candidate
