@@ -93,6 +93,22 @@ EMULATOR UPDATE - video cutscene path (KytyPS5 source + deployed binary)
   the remaining gap is downstream (texture upload / presentation / game
   pacing).
 
+FOLLOW-UP EXPERIMENTS (2026-10-08)
+- Shadow 2048->1024 experiment: NEGATIVE. The most promising candidate
+  (three (0x800,0x800) surface setups at VA 0x1C3E207/224/241) was patched
+  to 0x400 in a test build: both cheats applied, game booted fine, but the
+  2048x2048 depth target persisted unchanged. Those immediates are something
+  else (likely buffer sizes). The real shadow allocator was not found, and
+  blind-patching 0x800 values is unsafe (85+ sites, mostly byte sizes), so
+  NO shadow mod is shipped. The 2048 shadow pass is ~4% of draws / ~9% of
+  indices - small even if found.
+- Texture-upload profiling: EXONERATED. Instrumented Image::Upload shows
+  only ~10 uploads >=8MB over a full 110s boot-to-title run (~110MB total,
+  boot logos only) - video frames are NOT re-uploaded per frame. Combined
+  with threaded decode (~150% CPU, headroom left), convert+copy ~2.1ms, and
+  a pegged guest main thread at title, the video/title limits are game-side
+  pacing and per-frame CPU work, not transfer bandwidth.
+
 RE-PORTING TO A NEW VERSION
 1. In the new eboot.bin, search code for B8 imm64 0x87000000F00 and for
    mov r32,imm32 pairs (0xF00 vs 0x780, 0x870 vs 0x438) near resolution
