@@ -1,57 +1,108 @@
 {
   "id": "PPSA01325",
-  "version": "01.905.000",
-  "process": "eboot.bin",
   "mods": [
     {
-      "name": "Internal 1080p (was 4K) - 9 writes",
+      "memory": [
+        {
+          "off": "000f000070080000",
+          "offset": "0x183EEA7",
+          "on": "8007000038040000"
+        },
+        {
+          "off": "41bc70080000",
+          "offset": "0x1C2BEC4",
+          "on": "41bc38040000"
+        },
+        {
+          "off": "41be000f0000",
+          "offset": "0x1C2BECA",
+          "on": "41be80070000"
+        },
+        {
+          "off": "ba000f0000",
+          "offset": "0x1C2BFE6",
+          "on": "ba80070000"
+        },
+        {
+          "off": "b970080000",
+          "offset": "0x1C2BFF5",
+          "on": "b938040000"
+        },
+        {
+          "off": "41be70080000",
+          "offset": "0x1C2E5F7",
+          "on": "41be38040000"
+        },
+        {
+          "off": "bb000f0000",
+          "offset": "0x1C2E5FD",
+          "on": "bb80070000"
+        },
+        {
+          "off": "bb70080000",
+          "offset": "0x1D59E8D",
+          "on": "bb38040000"
+        },
+        {
+          "off": "41bc000f0000",
+          "offset": "0x1D59E92",
+          "on": "41bc80070000"
+        }
+      ],
+      "name": "Internal 1080p (was 4K) - 9 writes"
+    },
+    {
+      "name": "Internal 720p (was 4K) - enable INSTEAD of the 1080p mod, not both",
+      "enabled": false,
       "memory": [
         {
           "offset": "0x183EEA7",
           "off": "000f000070080000",
-          "on": "8007000038040000"
+          "on": "00050000d0020000"
         },
         {
           "offset": "0x1C2BEC4",
           "off": "41bc70080000",
-          "on": "41bc38040000"
+          "on": "41bcd0020000"
         },
         {
           "offset": "0x1C2BECA",
           "off": "41be000f0000",
-          "on": "41be80070000"
+          "on": "41be00050000"
         },
         {
           "offset": "0x1C2BFE6",
           "off": "ba000f0000",
-          "on": "ba80070000"
+          "on": "ba00050000"
         },
         {
           "offset": "0x1C2BFF5",
           "off": "b970080000",
-          "on": "b938040000"
+          "on": "b9d0020000"
         },
         {
           "offset": "0x1C2E5F7",
           "off": "41be70080000",
-          "on": "41be38040000"
+          "on": "41bed0020000"
         },
         {
           "offset": "0x1C2E5FD",
           "off": "bb000f0000",
-          "on": "bb80070000"
+          "on": "bb00050000"
         },
         {
           "offset": "0x1D59E8D",
           "off": "bb70080000",
-          "on": "bb38040000"
+          "on": "bbd0020000"
         },
         {
           "offset": "0x1D59E92",
           "off": "41bc000f0000",
-          "on": "41bc80070000"
+          "on": "41bc00050000"
         }
       ]
     }
-  ]
+  ],
+  "process": "eboot.bin",
+  "version": "01.905.000"
 }
