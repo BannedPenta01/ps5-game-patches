@@ -125,7 +125,13 @@ FirstDownSample stage-name string in R segment (R pages proven writable via
 a no-op GamePatch write) to starve the chain. Result: NO-OP - identical
 visuals (title glow intact), identical fps/draws. Stage names are debug
 labels only; the render graph does not key on them. A real bloom skip needs
-the traversal-time decision point, still open.
+the traversal-time decision point, still open. Traversal analysis: stage
+objects carry per-stage u16 slots at +0x28/+0x2A/+0x2C written at
+construction from constructor 0x1BE23C0 output - but the parent object
+arrives as a caller argument (never stored locally), i.e. heap/runtime
+objects with no static address, and readers use hashed registry lookups
+with no static xrefs. Static RE cannot reach the skip decision; unlocking
+it needs Kyty-side pass-to-command-buffer attribution plus writer RE.
 
 FOLLOW-UP EXPERIMENTS (2026-10-08)
 - Shadow 2048->1024 experiment: NEGATIVE. The most promising candidate
