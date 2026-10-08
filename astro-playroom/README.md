@@ -1,4 +1,4 @@
-# ASTRO's PLAYROOM — Internal 1080p patch (PPSA01325, v01.905.000)
+# ASTRO's PLAYROOM — Internal resolution patches (PPSA01325, v01.905.000)
 
 Astro's Playroom (PPSA01325, v01.905.000) - Internal 1080p patch for KytyPS5
 =============================================================================
@@ -12,7 +12,19 @@ It lowers the game's internal render resolution from 3840x2160 to 1920x1080
 to make the game viable on PC handhelds (ROG Ally etc.).
 
 FILE
-PPSA01325_01.905.000_1080p.json  (this folder)
+PPSA01325_01.905.000_1080p.json  (this folder; despite the name it holds
+both mods below - enable exactly ONE of them in the Kyty launcher's
+patches dialog, or via the "enabled" flags)
+
+MODS
+1. "Internal 1080p (was 4K)" (enabled by default) - 9 writes, 3840x2160 ->
+   1920x1080. Best quality/perf balance. Title: ~12.3 fps (stock ~4.4).
+2. "Internal 720p (was 4K)" (disabled by default) - same 9 sites rewritten
+   to 1280x720 (0x500/0x2D0). Title: ~15.2 fps (~3.5x stock, +24% over
+   1080p). Verified: 1280x720 main target + full mip chain, no 1080p/4K
+   targets left, clean boot to the "START A NEW GAME" screen (screenshot
+   verified, no corruption). Same-scene draw counts identical (~250/present),
+   so the gain is real rendering work saved, not a different scene.
 
 USAGE - command line (Batocera / kyty.sh):
   kyty_emulator --game "/userdata/roms/ps5/Astro Playroom.ps5/eboot.bin" \
