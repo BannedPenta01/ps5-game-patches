@@ -82,11 +82,19 @@ KNOWN LIMITATIONS (honest notes, not marketing)
   with a 720p/1080p window. Kyty's --display-resolution Auto already reports
   HD for sub-4K windows, which complements this patch.
 
-BENCHMARK (Ryzen Z1 / RADV, 1280x720 window, KYTY_FPS_LOG=1, title screen)
-- Stock 4K internal:   ~4.4 fps steady, p95 frame ~240ms
-- With this patch:     ~12.3 fps steady, p95 frame ~85ms  (~2.8x)
-- Per-present draw counts identical (~250), confirming the same scene is
-  being rendered faster, not a different scene.
+BENCHMARK (Ryzen Z1 / RADV, 1280x720 window unless noted, KYTY_FPS_LOG=1)
+- Stock 4K internal, 15W:      ~4.4 fps title steady, p95 ~240ms
+- 1080p patch, 15W:            ~9.7-12.3 fps title (windowed-fullscreen range)
+- 1080p patch, 20W (AC prof.): ~13.0 fps title, p95 ~85ms
+- 720p patch, 15W:             ~15.2 fps title (same 250 draws/present scene)
+- 1080p patch, 25W STAPM test: ~28-29 fps intro/tutorial scenes
+- 720p patch, 25W STAPM test:  ~28 fps peak scene, ~22.5 settled scene
+- Temps at 25W: CPU 87-90C, GPU 90C (under 95C firmware throttle).
+  TDP was restored to stock 15W after testing - raise it yourself to play
+  this way (Ally Turbo/manual mode or ryzenadj --stapm-limit=25000).
+PATH TO PLAYABLE: 25W sustained + Performance (720p) preset + 720p window
+  lands ~22-28 fps across scenes (vs 4.4 stock). 30 locked is not there,
+  but heavy scenes roughly triple and light scenes go playable.
 
 EMULATOR UPDATE - video cutscene path (KytyPS5 source + deployed binary)
 - Problem: Astro's boot logo ps_studio_short2.mp4 is HEVC 4K 3840x2160@60.
