@@ -49,10 +49,10 @@
           "on": "41bc80070000"
         }
       ],
-      "name": "Internal 1080p (was 4K) - 9 writes"
+      "name": "Preset: Balanced - 1080p internal (recommended)"
     },
     {
-      "name": "Internal 720p (was 4K) - enable INSTEAD of the 1080p mod, not both",
+      "name": "Preset: Performance - 720p internal (enable INSTEAD of Balanced, not both)",
       "enabled": false,
       "memory": [
         {
