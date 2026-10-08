@@ -116,6 +116,16 @@ for zero verified gain. Per-effect work (starting with bloom: fullscreen,
 additive, mild visual cost) needs render-stage correlation and is roadmap,
 not in this file. The two resolution presets above are the verified,
 safe core of the preset.
+BLOOM DEEP-DIVE (2026-10-09): fully mapped the chain - stages
+FirstDownSample->Blur->Mix->Final (GfxRenderStageBloom*), ping-pong buffers
+bloomColor{2,4,8,16,32}{A,B} + bloomInputColor, shader uniform u_bloomMax,
+per-stage shader/descriptor blobs, construction sites at VA 0x1DFA3F4 etc.
+(via new+name+descriptor constructor 0x1BE23C0). Experiment: zeroed the
+FirstDownSample stage-name string in R segment (R pages proven writable via
+a no-op GamePatch write) to starve the chain. Result: NO-OP - identical
+visuals (title glow intact), identical fps/draws. Stage names are debug
+labels only; the render graph does not key on them. A real bloom skip needs
+the traversal-time decision point, still open.
 
 FOLLOW-UP EXPERIMENTS (2026-10-08)
 - Shadow 2048->1024 experiment: NEGATIVE. The most promising candidate
